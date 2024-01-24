@@ -19,6 +19,6 @@ int main()
             printf("%d %d", h+a, m);
         }
    }
-    
     return 0;
 }
+// 틀렸던 이유: 24시 == 0시로 취급함.

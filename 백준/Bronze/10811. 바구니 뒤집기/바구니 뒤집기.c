@@ -9,7 +9,7 @@ int main()
     int n, m;
     scanf("%d %d\n", &n, &m);
 
-    int arr[n+1];
+    int arr[n+1]; //배열 크기 항상 확인!
 
     for(int i=0 ;i<=n; i++){
         arr[i] = i;

@@ -18,8 +18,11 @@ int main(void)
     int count = 0; //단어의 개수
 
     while(token != NULL){
+        //이 조건을 추가하지 않을 경우
+        //: 공백 문자만 입력되어도 count == 1로 출력됨!!!
         if(strcmp(token, "\n") != 0 && strcmp(token, " ") != 0 && strcmp(token, "\t") != 0)
             count++;
+        //공백 문자를 읽으면 그 위치에 NULL을 넣고 다음 위치로 이동
         token = strtok(NULL, " "); //다음 분할 위치로 이동
     }
 

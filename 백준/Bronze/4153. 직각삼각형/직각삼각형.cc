@@ -22,6 +22,19 @@ int main() {
         // 가장 긴 변의 길이
         sort(inputs.begin(), inputs.end());
 
+        /* // 다른 방법
+        int max, num1, num2;
+        if (inputs[0] >= inputs[1] && inputs[0] >= inputs[2]) {
+            // 0이 최대
+            max = inputs[0]; num1 = inputs[1]; num2 = inputs[2];
+        } else if (inputs[1] >= inputs[2]) {
+            // 1이 최대
+            max = inputs[1]; num1 = inputs[0]; num2 = inputs[2];
+        } else {
+            // 2가 최대
+            max = inputs[2]; num1 = inputs[0]; num2 = inputs[1];
+        } */
+
         if (inputs[0]*inputs[0] + inputs[1]*inputs[1] == inputs[2]*inputs[2]) {
             // 직각인 경우
             results.push_back("right");

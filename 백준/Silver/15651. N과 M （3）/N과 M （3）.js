@@ -1,7 +1,7 @@
 let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-// 15650: N과 M (2)
+// 15651: N과 M (3)
 let [n, m] = input[0].split(" ").map(Number);
 let arr = [];
 for (let i = 1; i <= n; i++) {

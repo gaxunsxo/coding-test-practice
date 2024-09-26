@@ -5,12 +5,12 @@ let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 // n: 도시의 개수
 let n = Number(input[0]); 
 // len: 인접한 두 도시를 연결하는 도로의 길이
-let len = input[1].split(" ").map(Number);
+let len = input[1].split(" ").map(BigInt);
 // fuels: 주유소의 리터당 가격 
-let fuels = input[2].split(" ").map(Number);
+let fuels = input[2].split(" ").map(BigInt);
 
 // 최소 비용 계산
-let totalCost = 0;
+let totalCost = 0n;
 let minPrice = fuels[0]; // 첫 번째 도시의 주유소 가격으로 초기화
 
 for (let i = 0; i < n - 1; i++) {
@@ -22,4 +22,4 @@ for (let i = 0; i < n - 1; i++) {
   totalCost += minPrice * len[i];
 }
 
-console.log(totalCost);
+console.log(String(totalCost));

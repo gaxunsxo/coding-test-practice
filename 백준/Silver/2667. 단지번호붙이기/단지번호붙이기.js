@@ -1,53 +1,60 @@
 let fs = require("fs");
-let input = fs.readFileSync("/dev/stdin").toString().split("\n");
+let input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-// 2667번: 단지번호붙이기 
+// 2667번. 단지번호붙이기
 let n = Number(input[0]);
 let map = [];
 for (let i = 0; i < n; i++) {
-  map.push(input[i + 1].split("").map(Number)); 
+  map.push(input[i + 1].split("").map(Number));
 }
 
-// 방향 설정하기: 북, 동, 남, 서
-let dx = [-1, 0, 1, 0];
-let dy = [0, 1, 0, -1];
+// 총 단지 수
+let totalVillage = 0;
 
-let visited = []; // n x n 맵에서의 각 위치의 방문 여부 
-for (let i = 0; i < n; i++) {
-  visited.push(new Array(n).fill(false));
-}
-let count = 0; // 현재 단지에 있는 집의 수 
-let village = 0;
+// 각 단지내 집의 수 저장
+let village = [];
 
-function dfs(x, y) {
-  visited[x][y] = true; // (x, y) 방문 처
-  count++;
-  for (let i = 0; i < 4; i++) {
-    // 인접한 노드(4가지 방향) 확인
-    let nx = x + dx[i];
-    let ny = y + dy[i];
-    // 범위(n, n)를 벗어나는 좌표라면 무시 
-    if (nx < 0 || nx >= n || 
-       ny < 0 || ny >= n) continue;
-    if (!visited[nx][ny] && map[nx][ny] === 1) 
-      dfs(nx, ny);
-  }
-}
+// 한 단지 내 집의 수
+let count = 0;
 
-let houses = [];
+// 집의 방문 여부 확인
+let visited = [];
+for (let i = 0; i < n; i++) visited.push(Array(n).fill(false));
 
+// 이동 방향: 상하좌우
+let dx = [0, 0, -1, 1];
+let dy = [1, -1, 0, 0];
+
+// 지도를 순회하며
 for (let i = 0; i < n; i++) {
   for (let j = 0; j < n; j++) {
     if (!visited[i][j] && map[i][j] === 1) {
-      // 새로운 단지(연결 요소)가 있다면 
-      count = 0; // 해당 단지에 있는 집의 수 초기화 
-      dfs(i, j); // 해당 단지를 방문
-      village++; // 전체 단지의 수 증가
-      houses.push(count);
+      totalVillage++; // 단지 수 증가
+      count = 0; // 단지 내 집의 수 초기화
+      dfs(i, j);
     }
   }
 }
 
-console.log(village);
-houses.sort((a, b) => a - b); // 방문한 단지의 수 오름차순 정렬
-console.log(houses.join("\n"));
+function dfs(x, y) {
+  visited[x][y] = true;
+  count++;
+  village[totalVillage] = count;
+
+  for (let i = 0; i < 4; i++) {
+    let nx = x + dx[i];
+    let ny = y + dy[i];
+
+    if (nx >= n || nx < 0 || ny >= n || ny < 0) continue;
+    if (!visited[nx][ny] && map[nx][ny]) {
+      // count++; // 단지 내 집의 수 증가
+      dfs(nx, ny);
+    }
+  }
+}
+
+// 총 단지수
+console.log(totalVillage);
+// 각 단지 내 집의 수: 오름차순 정렬
+village.sort((a, b) => a - b);
+console.log(village.join("\n"));
